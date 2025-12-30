@@ -9,6 +9,40 @@
 <img src="assets/preview.png"/>
 </p>
 
+## Why this fork?
+
+This fork was created to better suit my personal preferences and my specific NixOS system setup.
+
+### My Changes:
+- **NixOS Optimization**: Removed redundant Docker socket information (e.g., `unix:///run/user/1000/docker.sock`) to provide a cleaner prompt experience.
+- **Improved Machine Context**: Integrated `user@hostname` into the prompt for clear session identification across multiple machines and SSH sessions.
+- **Zsh-Enforced Development Shell**: Updated the Nix development environment to automatically launch **Zsh**, ensuring immediate support for the transient prompt feature and a consistent setup.
+
+## NixOS Installation (Home Manager)
+
+You can easily use this theme in your NixOS configuration using Home Manager.
+
+```nix
+let
+  catppuccin-omp-src = pkgs.fetchFromGitHub {
+    owner = "SuperGamer1337";
+    repo = "catppuccin.omp";
+    rev = "main"; # Use a specific commit hash for reproducibility
+    sha256 = lib.fakeSha256; # Replace with the actual hash after the first build failure
+  };
+in
+{
+  programs.oh-my-posh = {
+    enable = true;
+    enableZshIntegration = true;
+    configFile = "${catppuccin-omp-src}/mocha.omp.json";
+  };
+}
+```
+
+> [!TIP]
+> When updating the repository, you can set `sha256 = "";` or use `lib.fakeSha256`. The build will fail and provide you with the correct hash to paste back into your configuration.
+
 ## Previews
 
 > Font used is [JetBrainsMono Nerd Font](https://www.nerdfonts.com/)
