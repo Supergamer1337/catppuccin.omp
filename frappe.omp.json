@@ -106,12 +106,6 @@
                     }
                 },
                 {
-                    "type": "docker",
-                    "style": "plain",
-                    "foreground": "p:docker",
-                    "template": "\uf308 {{ .Context }} "
-                },
-                {
                     "type": "go",
                     "style": "plain",
                     "foreground": "p:go",

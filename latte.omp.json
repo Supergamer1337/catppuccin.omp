@@ -1,4 +1,13 @@
-{\ue73c {{ if not .Error }}{{ .Full }}{{ end }} 
+{\ue73c {
+        { if not .Error
+        }
+    }{
+        { .Full
+        }
+    }{
+        { end
+        }
+    } 
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
     "version": 2,
     "final_space": false,
@@ -106,12 +115,6 @@
                     }
                 },
                 {
-                    "type": "docker",
-                    "style": "plain",
-                    "foreground": "p:docker",
-                    "template": "\uf308 {{ .Context }} "
-                },
-                {
                     "type": "go",
                     "style": "plain",
                     "foreground": "p:go",
@@ -149,7 +152,7 @@
                     "type": "rust",
                     "style": "plain",
                     "foreground": "p:rust",
-                    "template": "\ue7a8 {{ if not .Error }}{{ .Full }}{{ end }} "
+                    "template": "{"
                 },
                 {
                     "type": "executiontime",
