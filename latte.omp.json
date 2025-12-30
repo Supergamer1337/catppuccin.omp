@@ -1,13 +1,4 @@
-{\ue73c {
-        { if not .Error
-        }
-    }{
-        { .Full
-        }
-    }{
-        { end
-        }
-    } 
+{
     "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
     "version": 2,
     "final_space": false,
@@ -85,6 +76,14 @@
                     }
                 },
                 {
+                    "type": "session",
+                    "style": "diamond",
+                    "trailing_diamond": "\ue0b0",
+                    "foreground": "p:text",
+                    "background": "p:surface0",
+                    "template": " {{ .UserName }}@{{ .HostName }} "
+                },
+                {
                     "type": "path",
                     "style": "plain",
                     "foreground": "p:path",
@@ -152,7 +151,7 @@
                     "type": "rust",
                     "style": "plain",
                     "foreground": "p:rust",
-                    "template": "{"
+                    "template": "\ue7a8 {{ if not .Error }}{{ .Full }}{{ end }} "
                 },
                 {
                     "type": "executiontime",

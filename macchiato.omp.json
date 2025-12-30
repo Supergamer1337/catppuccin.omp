@@ -76,6 +76,14 @@
                     }
                 },
                 {
+                    "type": "session",
+                    "style": "diamond",
+                    "trailing_diamond": "\ue0b0",
+                    "foreground": "p:text",
+                    "background": "p:surface0",
+                    "template": " {{ .UserName }}@{{ .HostName }} "
+                },
+                {
                     "type": "path",
                     "style": "plain",
                     "foreground": "p:path",

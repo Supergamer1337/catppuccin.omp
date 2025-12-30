@@ -21,27 +21,23 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.oh-my-posh
+            pkgs.zsh
           ];
 
           shellHook = ''
-            echo "Initializing Catppuccin Mocha theme for oh-my-posh..."
-
             # Create a temp file for the config to prevent modification of the original
-            CONFIG_TMP=$(mktemp --suffix=.omp.json)
-            cp ./mocha.omp.json "$CONFIG_TMP"
+            export OMP_THEME_CONFIG=$(mktemp --suffix=.omp.json)
+            cp ./mocha.omp.json "$OMP_THEME_CONFIG"
 
-            # Detect shell and initialize
-            if [ -n "$ZSH_VERSION" ]; then
-              eval "$(oh-my-posh init zsh --config "$CONFIG_TMP")"
-            elif [ -n "$BASH_VERSION" ]; then
-              eval "$(oh-my-posh init bash --config "$CONFIG_TMP")"
-            elif [ -n "$FISH_VERSION" ]; then
-              eval "$(oh-my-posh init fish --config "$CONFIG_TMP")"
-            else
-              echo "Could not detect shell (zsh/bash/fish). Please run 'oh-my-posh init <shell> --config ./mocha.omp.json' manually."
-            fi
+            # Setup a temporary ZDOTDIR to load our configuration on top of user's
+            export ZDOTDIR=$(mktemp -d)
 
-            echo "Environment ready! Use 'oh-my-posh init <shell> --config <file>' to switch themes."
+            # Create .zshrc that sources user's config and adds our theme
+            echo "if [ -f $HOME/.zshrc ]; then source $HOME/.zshrc; fi" > "$ZDOTDIR/.zshrc"
+            echo 'eval "$(oh-my-posh init zsh --config "$OMP_THEME_CONFIG")"' >> "$ZDOTDIR/.zshrc"
+
+            echo "Initializing Catppuccin Mocha theme in ZSH..."
+            exec zsh
           '';
         };
       }
